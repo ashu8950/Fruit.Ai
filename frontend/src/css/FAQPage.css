@@ -1,0 +1,41 @@
+.faq-page-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .back-to-home {
+    display: block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .back-to-home:hover {
+    background-color: #3e8e41;
+  }
+  
+  .back-to-home svg {
+    margin-right: 10px;
+  }
+  
+  /* Responsive design */
+  
+  @media only screen and (max-width: 600px) {
+    .faq-page-container {
+      margin: 20px;
+      padding: 10px;
+    }
+    .back-to-home {
+      font-size: 16px;
+      padding: 10px 15px;
+    }
+  }
