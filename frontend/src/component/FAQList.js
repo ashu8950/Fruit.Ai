@@ -50,7 +50,7 @@ const FAQList = () => {
             <li key={faq._id} className="faq-item">
               <h3>{faq.question}</h3>
               <p>{faq.answer}</p>
-              {faq.imageUrl && <img src={`http://localhost:5000/${faq.imageUrl}`} alt={faq.question} />}
+              {faq.imageUrl && <img src={`https://fruit-ai-oi8l.onrender.com/${faq.imageUrl}`} alt={faq.question} />}
               <div className="faq-buttons">
                 <Link to={`/edit-faq/${faq._id}`} className="edit-button">Edit</Link>
                 <button onClick={() => handleDelete(faq._id)} className="delete-button">Delete</button>
