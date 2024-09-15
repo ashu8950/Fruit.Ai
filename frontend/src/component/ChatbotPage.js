@@ -97,7 +97,7 @@ const ChatbotPage = () => {
                         alt="Detail"
                         className="message-image"
                         onError={(e) => {
-                          e.target.src = 'http://localhost:5000/uploads/default-image.jpg'; // Fallback image
+                          e.target.src = 'https://fruit-ai-oi8l.onrender.com/uploads/default-image.jpg'; // Fallback image
                         }}
                       />
                     )}
