@@ -137,7 +137,7 @@ a {
     margin-top: 8px;
 }
 
-.footer {
+.home_footer {
     display: flex;
     gap: 12px;
     margin-top: 25px;
@@ -170,6 +170,11 @@ a {
         width: 95%;
         padding: 15px;
     }
+    .home_footer{
+    flex-direction: reverse;
+    align-items: stretch;
+    padding: 10px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -191,7 +196,7 @@ a {
         padding: 10px;
     }
 
-    .footer {
+    .home_footer {
         margin-top: 10px;
         gap: 5px;
         flex-direction: row; /* Ensure dots are horizontal */
@@ -232,7 +237,7 @@ a {
         padding: 8px;
     }
 
-    .footer {
+    .home_footer {
         margin-top: 5px;
         gap: 3px;
         flex-direction: row;

@@ -17,8 +17,8 @@ function App() {
         <Route path="/" element={<LoginPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/faq" element={<FAQPage />} />
-        <Route path="/add-faq" element={<FAQForm />} />
-        <Route path="/edit-faq/:id" element={<FAQDisplay />} />
+        <Route path="/add-fruit" element={<FAQForm />} />
+        <Route path="/edit-fruit/:id" element={<FAQDisplay />} />
         <Route path="/chatbot" element={<ChatbotPage />} />
         <Route path="/translator" element={<TranslatorPage />} />
         <Route path="/about" element={<AboutPage />} />

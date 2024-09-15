@@ -12,7 +12,7 @@ const FAQPage = () => {
 
   return (
     <div className="faq-page-container">
-      <FAQList />
+      <FAQList/>
     </div>
   );
 };

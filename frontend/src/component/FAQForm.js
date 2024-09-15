@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createFAQ } from '../api/api'; // Ensure correct import
+import { createFAQ } from '../api/api';
 import { useNavigate } from 'react-router-dom';
 import '../css/FAQForm.css';
 
@@ -9,6 +9,15 @@ const FAQForm = () => {
   const [image, setImage] = useState(null);
   const [notification, setNotification] = useState('');
   const navigate = useNavigate();
+
+  const handleImageChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile && !selectedFile.type.startsWith('image/')) {
+      setNotification('Please select a valid image file.');
+      return;
+    }
+    setImage(selectedFile);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,7 +32,13 @@ const FAQForm = () => {
     try {
       await createFAQ(formData);
       setNotification('FAQ added successfully!');
-      setTimeout(() => navigate('/faq'), 2000); // Redirect to FAQ list after 2 seconds
+      setQuestion('');
+      setAnswer('');
+      setImage(null);
+      setTimeout(() => {
+        setNotification('');
+        navigate('/faq');
+      }, 2000);
     } catch (error) {
       setNotification('Failed to add FAQ.');
       console.error('Error adding FAQ:', error.response ? error.response.data : error.message);
@@ -46,7 +61,7 @@ const FAQForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="answer">Discription:</label>
+          <label htmlFor="answer">Description:</label>
           <textarea
             id="answer"
             value={answer}
@@ -55,11 +70,12 @@ const FAQForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="image">Image:</label>
+          <label htmlFor="image">Image (optional):</label>
           <input
             type="file"
             id="image"
-            onChange={(e) => setImage(e.target.files[0])}
+            accept="image/*"
+            onChange={handleImageChange}
           />
         </div>
         <button type="submit">Add Fruit</button>

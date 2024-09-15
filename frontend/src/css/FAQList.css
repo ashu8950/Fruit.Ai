@@ -3,22 +3,26 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px; /* Increased padding for larger screens */
+    padding: 20px;
     background-color: #f5f5f5;
     min-height: 100%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    width: 100%;
-    max-width: 1200px; /* Restrict max-width for large screens */
+    width: 100vw;
+    height: 100vh;
+    max-width: 1200px;
     margin: 0 auto;
     box-sizing: border-box;
+    position: relative; /* Needed for positioning the fixed button */
+    overflow-y: auto; /* Allow vertical scrolling */
+    padding-bottom: 60px; /* Ensure space for the fixed button on small screens */
 }
 
 /* Header */
 h2 {
-    margin-bottom: 4vh; /* Reduced margin */
+    margin-bottom: 4vh;
     color: #333;
-    font-size: 2em; /* Increased font size for larger screens */
+    font-size: 2em;
     font-weight: bold;
     text-align: center;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
@@ -28,29 +32,31 @@ h2 {
 .add-faq-button {
     background-color: #007bff;
     color: white;
-    padding: 12px 24px; /* Increased padding for better visibility */
+    padding: 12px 24px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 16px; /* Increased font size for visibility on large screens */
+    font-size: 16px;
     text-decoration: none;
-    margin-bottom: 6vh; /* Reduced margin for better spacing */
+    position: fixed; /* Fixed position */
+    bottom: 20px; /* Distance from the bottom */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust horizontal centering */
+    z-index: 1000; /* Ensure it stays on top of other content */
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: inline-block;
-    align-self: center; /* Center the button */
 }
 
 .add-faq-button:hover {
     background-color: #0056b3;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhanced hover shadow */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* FAQ List */
 .faq-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px; /* Increased gap for larger screens */
+    gap: 12px;
     justify-content: center;
     width: 100%;
     box-sizing: border-box;
@@ -61,10 +67,10 @@ h2 {
     background: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 16px; /* Increased padding for better visibility */
-    width: calc(33.333% - 12px); /* Three items per row on large screens */
-    max-width: 30vw; /* Ensure items don't get too wide on large screens */
-    min-height: 200px; /* Increased min-height for larger screens */
+    padding: 16px;
+    width: calc(33.333% - 12px);
+    max-width: 30vw;
+    min-height: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -84,7 +90,7 @@ h2 {
 .faq-item h3 {
     margin: 0;
     color: #333;
-    font-size: 1.2em; /* Larger font size for better readability */
+    font-size: 1.2em;
     font-weight: bold;
     text-align: center;
 }
@@ -94,12 +100,12 @@ h2 {
     text-align: center;
     color: #666;
     margin: 6px 0;
-    font-size: 0.9em; /* Slightly larger font for readability */
+    font-size: 0.9em;
 }
 
 /* FAQ Item Image */
 .faq-item img {
-    max-width: 100%; /* Allow full width */
+    max-width: 100%;
     height: auto;
     border-radius: 4px;
     margin-bottom: 8px;
@@ -118,17 +124,17 @@ h2 {
 /* General Button Styling */
 .edit-button,
 .delete-button {
-    padding: 6px 12px; /* Increased padding for better visibility */
+    padding: 6px 12px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 12px; /* Slightly increased font size */
+    font-size: 12px;
     text-decoration: none;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 60px; /* Increased minimum width */
+    min-width: 60px;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -156,33 +162,34 @@ h2 {
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
     .faq-item {
-        width: calc(50% - 10px); /* Two items per row for medium screens */
+        width: calc(50% - 10px);
         max-width: 45vw;
         min-height: 160px;
     }
 
     .add-faq-button {
-        padding: 10px 20px; /* Adjust padding for medium screens */
+        padding: 10px 20px;
         font-size: 14px;
     }
 
     h2 {
-        font-size: 1.6em; /* Adjust font size for medium screens */
+        font-size: 1.6em;
     }
 }
 
 @media (max-width: 768px) {
     .faq-item {
-        width: calc(50% - 6px); /* Two items per row */
+        width: calc(50% - 6px);
         max-width: 90vw;
         min-height: 140px;
     }
 
     .add-faq-button {
-        padding: 8px 16px; /* Adjust padding for small screens */
+        padding: 8px 16px;
         font-size: 12px;
-        margin-top: 4vh;
-        margin-bottom: 2vh; /* Ensure margin doesn't push the button out of view */
+        bottom: 20px; /* Ensure it's above the bottom of the viewport */
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%); /* Adjust horizontal centering */
     }
 
     h2 {
@@ -196,17 +203,18 @@ h2 {
 
 @media (max-width: 480px) {
     .faq-item {
-        width: 100%; /* Full width for small screens */
+        width: 100%;
         max-width: 90vw;
         min-height: auto;
         padding: 10px;
     }
 
     .add-faq-button {
-        padding: 8px 16px; /* Adjust padding for small screens */
+        padding: 8px 16px;
         font-size: 12px;
-        margin-top: 60vh;
-        margin-bottom: 3vh; /* Ensure button stays visible */
+        bottom: 20px; /* Ensure it's above the bottom of the viewport */
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%); /* Adjust horizontal centering */
     }
 
     h2 {
@@ -215,11 +223,5 @@ h2 {
 
     .faq-list {
         gap: 6px;
-    }
-
-    /* Add this to ensure the button heading is visible on small screens */
-    .add-faq-button span {
-        font-size: 14px; /* Increase font size for better readability */
-        font-weight: bold;
     }
 }

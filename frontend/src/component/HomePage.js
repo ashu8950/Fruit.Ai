@@ -34,7 +34,7 @@ const HomePage = () => {
           </Link>
         </div>
       </div>
-      <div className="footer">
+      <div className="home_footer">
         <div className="dot"></div>
         <div className="dot"></div>
         <div className="dot"></div>
