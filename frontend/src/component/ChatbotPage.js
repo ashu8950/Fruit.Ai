@@ -64,7 +64,7 @@ const ChatbotPage = () => {
       } else {
         setMessages([
           { type: 'user', text: searchQuery },
-          { type: 'bot', text: `No FAQs found for "${searchQuery}".` }
+          { type: 'bot', text: `No Fruit found for "${searchQuery}".` }
         ]);
       }
     } catch (error) {
