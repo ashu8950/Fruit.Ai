@@ -32,11 +32,11 @@ const FAQForm = () => {
 
   return (
     <div className="faq-form-container">
-      <h2>Add New FAQ</h2>
+      <h2>Add New Fruit</h2>
       {notification && <p className="notification">{notification}</p>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="question">Question:</label>
+          <label htmlFor="question">Fruit:</label>
           <input
             type="text"
             id="question"
@@ -46,7 +46,7 @@ const FAQForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="answer">Answer:</label>
+          <label htmlFor="answer">Discription:</label>
           <textarea
             id="answer"
             value={answer}
@@ -62,7 +62,7 @@ const FAQForm = () => {
             onChange={(e) => setImage(e.target.files[0])}
           />
         </div>
-        <button type="submit">Add FAQ</button>
+        <button type="submit">Add Fruit</button>
       </form>
     </div>
   );

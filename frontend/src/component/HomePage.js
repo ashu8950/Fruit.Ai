@@ -22,7 +22,7 @@ const HomePage = () => {
           </Link>
           <Link to="/translator" className="button translate">
             <img src={translator} alt="Translate" />
-            <p>Translate</p>
+            <p>Translator</p>
           </Link>
           <Link to="/faq" className="button faq">
             <img src={faqImage} alt="FAQs" />

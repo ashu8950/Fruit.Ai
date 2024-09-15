@@ -43,11 +43,11 @@ const FAQDisplay = () => {
       }
 
       await updateFAQ(id, formData);
-      setNotification('FAQ updated successfully!');
+      setNotification('Fruit updated successfully!');
       setTimeout(() => navigate('/faq'), 2000); // Redirect to FAQ list after 2 seconds
     } catch (error) {
-      setNotification('Failed to update FAQ.');
-      console.error('Error updating FAQ:', error.response ? error.response.data : error.message);
+      setNotification('Failed to update Fruit.');
+      console.error('Error updating Fruit:', error.response ? error.response.data : error.message);
     }
   };
 
@@ -55,11 +55,11 @@ const FAQDisplay = () => {
 
   return (
     <div className="faq-details-container">
-      <h2>Edit FAQ</h2>
+      <h2>Edit Fruit</h2>
       {notification && <p className="notification">{notification}</p>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="question">Question:</label>
+          <label htmlFor="question">Fruit:</label>
           <input
             type="text"
             id="question"
@@ -69,7 +69,7 @@ const FAQDisplay = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="answer">Answer:</label>
+          <label htmlFor="answer">Discription:</label>
           <textarea
             id="answer"
             value={answer}
@@ -85,7 +85,7 @@ const FAQDisplay = () => {
             onChange={(e) => setImage(e.target.files[0])}
           />
         </div>
-        <button type="submit">Update FAQ</button>
+        <button type="submit">Update Fruit</button>
       </form>
       <button onClick={() => navigate('/faq')} className="back-button">Back to List</button>
     </div>

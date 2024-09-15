@@ -35,9 +35,9 @@ const ChatbotPage = () => {
       { type: 'user', text: faq.question },
       {
         type: 'bot',
-        text: `Here's information about ${faq.question}:`,
+        text: `Here's information about : ${faq.question}`,
         details: faq.answer,
-        image: faq.imageUrl ? `${API_BASE_URL}/${faq.imageUrl}` : null
+        image: faq.imageUrl // Use the relative URL from the FAQ
       }
     ]);
   };
@@ -58,7 +58,7 @@ const ChatbotPage = () => {
             type: 'bot',
             text: `Here's information about ${filteredFAQ.question}:`,
             details: filteredFAQ.answer,
-            image: filteredFAQ.imageUrl ? `${API_BASE_URL}/${filteredFAQ.imageUrl}` : null
+            image: filteredFAQ.imageUrl // Use the relative URL from the FAQ
           }
         ]);
       } else {
@@ -89,11 +89,11 @@ const ChatbotPage = () => {
                 {msg.type === 'user' && <p>{msg.text}</p>}
                 {msg.type === 'bot' && (
                   <div className="message-content">
-                    <p>{msg.text}</p>
-                    <p className="details">{msg.details}</p>
+                    <p className="question">{msg.text}</p>
+                    <p className="answer">{msg.details}</p>
                     {msg.image && (
                       <img
-                        src={msg.image}
+                        src={`http://localhost:5000/${msg.image}`} // Add base URL for images
                         alt="Detail"
                         className="message-image"
                         onError={(e) => {
@@ -118,7 +118,7 @@ const ChatbotPage = () => {
                   <p className="faq-question">{faq.question}</p>
                   {faq.imageUrl && (
                     <img
-                      src={`${API_BASE_URL}/${faq.imageUrl}`}
+                      src={`http://localhost:5000/${faq.imageUrl}`} // Add base URL for images
                       alt={faq.question}
                       className="faq-image"
                       onError={(e) => {

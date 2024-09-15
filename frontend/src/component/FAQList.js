@@ -38,10 +38,10 @@ const FAQList = () => {
 
   return (
     <div className="faq-list-container">
-      <h2>FAQ List</h2>
-      <Link to="/add-faq" className="add-faq-button">Add New FAQ</Link>
+      <h2>Fruit List</h2>
+      <Link to="/add-faq" className="add-faq-button">Add New Fruits</Link>
 
-      {loading && <p>Loading FAQs...</p>}
+      {loading && <p>Loading Fruits...</p>}
       {error && <p className="error-message">{error}</p>}
 
       {faqs.length > 0 ? (
@@ -59,7 +59,7 @@ const FAQList = () => {
           ))}
         </ul>
       ) : (
-        !loading && <p>No FAQs available.</p>
+        !loading && <p>No Fruits available.</p>
       )}
     </div>
   );
