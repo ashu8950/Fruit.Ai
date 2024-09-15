@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const faqSchema = new mongoose.Schema({
+const faqSchema = new Schema({
   question: { type: String, required: true },
   answer: { type: String, required: true },
-  imageUrl: { type: String, default: null }
+  imageUrl: { type: String, required: false },
 });
 
-module.exports = mongoose.model('FAQ', faqSchema);
+const FAQ = mongoose.model('FAQ', faqSchema);
+
+module.exports = FAQ;

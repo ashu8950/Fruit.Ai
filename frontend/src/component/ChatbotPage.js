@@ -1,38 +1,76 @@
-import React, { useState } from 'react';
-import fruits from '../component/fruits'; // Import fruit data from fruits.js
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../css/ChatbotPage.css';
 import chatbot from "../assets/chatbot.jpeg";
 
+// Base URL for the API
+const API_BASE_URL = 'http://localhost:5000/api';
+
 const ChatbotPage = () => {
-  const [searchQuery, setSearchQuery] = useState(''); // For user input
-  const [messages, setMessages] = useState([]); // Chat messages
+  const [searchQuery, setSearchQuery] = useState('');
+  const [messages, setMessages] = useState([]);
+  const [showChat, setShowChat] = useState(false);
+  const [faqs, setFaqs] = useState([]);
+  const [error, setError] = useState(null);
 
-  // Function to handle sending of the search query
-  const handleSend = () => {
-    const query = searchQuery.trim();
-    if (query === '') return; // Do nothing if input is empty
+  // Fetch FAQs from backend on component mount
+  useEffect(() => {
+    const fetchFAQs = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/faqs`);
+        setFaqs(response.data);
+      } catch (error) {
+        console.error('Failed to fetch FAQs:', error);
+        setError('Failed to load FAQs.');
+      }
+    };
 
-    // Add user's message to the chat
-    setMessages(prevMessages => [...prevMessages, { type: 'user', text: query }]);
-    setSearchQuery(''); // Clear input field
+    fetchFAQs();
+  }, []);
 
-    // Search for the fruit in the fruits array
-    let responseText = '';
-    let imageUrl = '';
+  // Handle clicking on an FAQ
+  const handleFAQClick = (faq) => {
+    setShowChat(true);
+    setMessages([
+      { type: 'user', text: faq.question },
+      {
+        type: 'bot',
+        text: `Here's information about ${faq.question}:`,
+        details: faq.answer,
+        image: faq.imageUrl ? `${API_BASE_URL}/${faq.imageUrl}` : null
+      }
+    ]);
+  };
 
-    // Search for a match in the fruits array
-    const fruitMatch = fruits.find(fruit => fruit.name.toLowerCase() === query.toLowerCase());
-    if (fruitMatch) {
-      // If match is found, display fruit details
-      responseText = fruitMatch.details; // Just details
-      imageUrl = fruitMatch.image; // URL of the fruit image
-    } else {
-      // If no match is found
-      responseText = 'Sorry, no information available for that fruit.';
+  // Handle the search action (on button click)
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/faqs`);
+      const filteredFAQ = response.data.find(faq =>
+        faq.question.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+
+      if (filteredFAQ) {
+        setShowChat(true);
+        setMessages([
+          { type: 'user', text: searchQuery },
+          {
+            type: 'bot',
+            text: `Here's information about ${filteredFAQ.question}:`,
+            details: filteredFAQ.answer,
+            image: filteredFAQ.imageUrl ? `${API_BASE_URL}/${filteredFAQ.imageUrl}` : null
+          }
+        ]);
+      } else {
+        setMessages([
+          { type: 'user', text: searchQuery },
+          { type: 'bot', text: `No FAQs found for "${searchQuery}".` }
+        ]);
+      }
+    } catch (error) {
+      console.error('Failed to search FAQs:', error);
+      setError('Failed to search FAQs.');
     }
-
-    // Add bot's response to the chat
-    setMessages(prevMessages => [...prevMessages, { type: 'bot', fruitName: query, details: responseText, image: imageUrl }]);
   };
 
   return (
@@ -41,31 +79,69 @@ const ChatbotPage = () => {
         <img src={chatbot} alt="Chatbot Logo" className="logo" />
         <h1 className="chatbot-name">Chatbot</h1>
       </header>
+
       <div className="chatbot-container">
-        <div className="chat-messages">
-          {messages.map((msg, index) => (
-            <div key={index} className={`message ${msg.type}`}>
-              {msg.type === 'bot' && (
-                <div className="message-content">
-                  {msg.fruitName && <p className="fruit-name">{msg.fruitName}</p>}
-                  {msg.details && <p className="fruit-details">{msg.details}</p>}
-                  {msg.image && <img src={msg.image} alt="Related content" className="message-image" />}
+        {error && <p className="error-message">{error}</p>}
+        {showChat ? (
+          <div className="chat-messages">
+            {messages.map((msg, index) => (
+              <div key={index} className={`message ${msg.type}`}>
+                {msg.type === 'user' && <p>{msg.text}</p>}
+                {msg.type === 'bot' && (
+                  <div className="message-content">
+                    <p>{msg.text}</p>
+                    <p className="details">{msg.details}</p>
+                    {msg.image && (
+                      <img
+                        src={msg.image}
+                        alt="Detail"
+                        className="message-image"
+                        onError={(e) => {
+                          e.target.src = 'http://localhost:5000/uploads/default-image.jpg'; // Fallback image
+                        }}
+                      />
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="content-list">
+            <div className="faq-list">
+              {faqs.map((faq, index) => (
+                <div
+                  key={index}
+                  className="faq-card"
+                  onClick={() => handleFAQClick(faq)}
+                >
+                  <p className="faq-question">{faq.question}</p>
+                  {faq.imageUrl && (
+                    <img
+                      src={`${API_BASE_URL}/${faq.imageUrl}`}
+                      alt={faq.question}
+                      className="faq-image"
+                      onError={(e) => {
+                        e.target.src = 'http://localhost:5000/uploads/default-image.jpg'; // Fallback image
+                      }}
+                    />
+                  )}
                 </div>
-              )}
-              {msg.type === 'user' && <p>{msg.text}</p>}
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        )}
       </div>
+
       <footer className="footer">
-        <input 
-          type="text" 
-          placeholder="Type a fruit name..." 
-          value={searchQuery} 
-          onChange={(e) => setSearchQuery(e.target.value)} 
+        <input
+          type="text"
+          placeholder="Type a question..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           className="search-input"
         />
-        <button onClick={handleSend} className="send-button">Send</button>
+        <button className="send-button" onClick={handleSearch}>Send</button>
       </footer>
     </div>
   );
