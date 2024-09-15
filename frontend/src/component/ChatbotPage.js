@@ -1,96 +1,58 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Import axios
-import fruits from '../component/fruits';  // Import fruit data
+import React, { useState } from 'react';
+import fruits from '../component/fruits'; // Import fruit data from fruits.js
 import '../css/ChatbotPage.css';
-
-// Define API URL
-const API_URL = 'http://localhost:5000/api';
+import chatbot from "../assets/chatbot.jpeg";
 
 const ChatbotPage = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [faqs, setFAQs] = useState([]);
-  const [messages, setMessages] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(''); // For user input
+  const [messages, setMessages] = useState([]); // Chat messages
 
-  useEffect(() => {
-    const getFAQs = async () => {
-      try {
-        const response = await axios.get(`${API_URL}/faqs`);
-        if (response.data && Array.isArray(response.data)) {
-          setFAQs(response.data);
-        } else {
-          console.error('Unexpected response format:', response.data);
-        }
-      } catch (error) {
-        console.error('Error fetching FAQs:', error);
-        setMessages([...messages, { type: 'bot', text: 'Error occurred while fetching FAQs.' }]);
-      }
-    };
-
-    getFAQs();
-  }, []);
-
-  const handleSend = async () => {
+  // Function to handle sending of the search query
+  const handleSend = () => {
     const query = searchQuery.trim();
-    if (query === '') return;
+    if (query === '') return; // Do nothing if input is empty
 
-    setMessages([...messages, { type: 'user', text: query }]);
-    setSearchQuery('');
+    // Add user's message to the chat
+    setMessages(prevMessages => [...prevMessages, { type: 'user', text: query }]);
+    setSearchQuery(''); // Clear input field
 
+    // Search for the fruit in the fruits array
     let responseText = '';
+    let imageUrl = '';
 
-    try {
-      // Search FAQs
-      const faqResponse = await axios.get(`${API_URL}/faqs/search`, {
-        params: { q: query }
-      });
-
-      const faqData = faqResponse.data;
-      if (faqData && Array.isArray(faqData)) {
-        if (faqData.length > 0) {
-          responseText = `FAQs found: ${faqData.map(faq => faq.question).join(', ')}`;
-        } else {
-          // Search Fruits
-          const fruitMatch = fruits.find(fruit => fruit.name.toLowerCase().includes(query.toLowerCase()));
-          if (fruitMatch) {
-            responseText = `Fruit found: ${fruitMatch.name} - ${fruitMatch.details}`;
-          } else {
-            // Find similar FAQs
-            const similarFAQ = faqs.filter(faq => faq.question.toLowerCase().includes(query.toLowerCase().substring(0, 3)));
-            if (similarFAQ.length > 0) {
-              responseText = `Similar FAQs found: ${similarFAQ.map(faq => faq.question).join(', ')}`;
-            } else {
-              // Find similar Fruits
-              const similarFruit = fruits.filter(fruit => fruit.name.toLowerCase().includes(query.toLowerCase().substring(0, 3)));
-              if (similarFruit.length > 0) {
-                responseText = `Similar fruits found: ${similarFruit.map(fruit => fruit.name).join(', ')}`;
-              } else {
-                responseText = 'Sorry, no data found.';
-              }
-            }
-          }
-        }
-      } else {
-        responseText = 'Error: Unexpected response format.';
-      }
-    } catch (error) {
-      console.error('Error during search:', error);
-      responseText = 'Error occurred during search.';
+    // Search for a match in the fruits array
+    const fruitMatch = fruits.find(fruit => fruit.name.toLowerCase() === query.toLowerCase());
+    if (fruitMatch) {
+      // If match is found, display fruit details
+      responseText = fruitMatch.details; // Just details
+      imageUrl = fruitMatch.image; // URL of the fruit image
+    } else {
+      // If no match is found
+      responseText = 'Sorry, no information available for that fruit.';
     }
 
-    setMessages([...messages, { type: 'bot', text: responseText }]);
+    // Add bot's response to the chat
+    setMessages(prevMessages => [...prevMessages, { type: 'bot', fruitName: query, details: responseText, image: imageUrl }]);
   };
 
   return (
     <div className="chatbot-page">
       <header className="header">
-        <img src="/path/to/logo.png" alt="Chatbot Logo" className="logo" />
+        <img src={chatbot} alt="Chatbot Logo" className="logo" />
         <h1 className="chatbot-name">Chatbot</h1>
       </header>
       <div className="chatbot-container">
         <div className="chat-messages">
           {messages.map((msg, index) => (
             <div key={index} className={`message ${msg.type}`}>
-              {msg.text}
+              {msg.type === 'bot' && (
+                <div className="message-content">
+                  {msg.fruitName && <p className="fruit-name">{msg.fruitName}</p>}
+                  {msg.details && <p className="fruit-details">{msg.details}</p>}
+                  {msg.image && <img src={msg.image} alt="Related content" className="message-image" />}
+                </div>
+              )}
+              {msg.type === 'user' && <p>{msg.text}</p>}
             </div>
           ))}
         </div>
@@ -98,7 +60,7 @@ const ChatbotPage = () => {
       <footer className="footer">
         <input 
           type="text" 
-          placeholder="Type your message..." 
+          placeholder="Type a fruit name..." 
           value={searchQuery} 
           onChange={(e) => setSearchQuery(e.target.value)} 
           className="search-input"

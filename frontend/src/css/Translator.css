@@ -1,0 +1,147 @@
+/* Container styling */
+.translator-container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 40px;
+    background-color: #333333; /* Dark grey background */
+    color: #ffffff; /* White text */
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); /* Deeper shadow for 3D effect */
+    transition: box-shadow 0.3s ease;
+    position: relative; /* Ensure content is positioned relative to container */
+  }
+  
+
+  
+  /* Hover effect for the container */
+  .translator-container:hover {
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6); /* More prominent shadow on hover */
+  }
+  
+  /* Title styling */
+  .translator-title {
+    font-size: 2.2rem;
+    margin-bottom: 5px;
+    color: #f0f0f0;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5); /* Stronger 3D text effect */
+  }
+  
+  /* Input box styling */
+  .translator-input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #444444; /* Darker grey input background */
+    color: #ffffff; /* White text */
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.6); /* Stronger inner shadow */
+    font-size: 1rem;
+    outline: none;
+    resize: none;
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+  }
+  
+  /* Focus effect for the input box */
+  .translator-input:focus {
+    background-color: #555555; /* Slightly lighter grey on focus */
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.8); /* Deeper inner shadow */
+  }
+  
+  /* 3D Translate button styling */
+  .translate-button {
+    padding: 15px 35px;
+    background-color: #1a1a1a; /* Almost black */
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /* 3D box shadow */
+    position: relative; /* Ensure it is positioned relative to its container */
+  }
+  
+  /* Hover effect for the button */
+  .translate-button:hover {
+    transform: translateY(-4px); /* Slight lift on hover */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6); /* Deeper shadow on hover */
+  }
+  
+  /* Active effect for the button */
+  .translate-button:active {
+    transform: translateY(2px); /* Button pressed */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Shadow reduces on press */
+  }
+  
+  /* Translated text output section */
+  .translated-output {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #222222; /* Dark grey background */
+    color: #ffffff; /* White text */
+    border-radius: 12px;
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.7); /* Strong inner shadow for depth */
+  }
+  
+  /* Title styling in the output section */
+  .translated-output h3 {
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    color: #f0f0f0;
+  }
+  
+  /* Paragraph styling in the output section */
+  .translated-output p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #e0e0e0; /* Slightly lighter text */
+  }
+  
+  /* Dropdown (language selector) styling */
+  .language-selector {
+    padding: 12px;
+    margin: 15px 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #444444; /* Dark grey dropdown */
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4); /* Subtle 3D effect */
+  }
+  
+  /* Hover effect for the dropdown */
+  .language-selector:hover {
+    background-color: #555555; /* Lighter grey on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); /* Deepen shadow on hover */
+  }
+  
+  /* Focus effect for the dropdown */
+  .language-selector:focus {
+    outline: none;
+    background-color: #666666; /* Even lighter grey on focus */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6); /* Stronger shadow on focus */
+  }
+  
+  /* Error message styling */
+  .error-message {
+    color: #ff5555; /* Red error message */
+    margin-top: 10px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .translator-container {
+      padding: 25px;
+    }
+    .translator-title {
+      font-size: 1.8rem;
+    }
+    .translate-button {
+      padding: 12px 25px;
+    }
+  }
+  

@@ -1,0 +1,76 @@
+/* AboutPage styling */
+.about-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #faf8f8; /* Black background */
+    margin: 0;
+  }
+  
+  .about-content {
+    background-color: #ffffff; /* White background for content */
+    color: #000000; /* Black text for high contrast */
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Darker shadow for 3D effect */
+    padding: 30px;
+    max-width: 90%;
+    width: 500px; /* Set a max width */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Hover effect for 3D look */
+  .about-content:hover {
+    transform: translateY(-8px); /* Lift effect on hover */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6); /* Deeper shadow on hover */
+  }
+  
+  /* Page title styling */
+  .page-title {
+    font-size: 2.5rem;
+    color: #000000; /* Black text */
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3); /* White shadow for 3D effect */
+  }
+  
+  /* Paragraph styling */
+  .about-content p {
+    color: #333333; /* Dark grey text */
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2); /* Light white shadow */
+  }
+  
+  /* Responsive design for mobile screens */
+  @media (max-width: 768px) {
+    .about-content {
+      padding: 20px;
+      width: 90%;
+    }
+  
+    .page-title {
+      font-size: 2rem;
+    }
+  
+    .about-content p {
+      font-size: 0.9rem;
+    }
+  }
+  
+  /* Extra small screen adjustments */
+  @media (max-width: 480px) {
+    .about-content {
+      padding: 15px;
+    }
+  
+    .page-title {
+      font-size: 1.8rem;
+    }
+  
+    .about-content p {
+      font-size: 0.85rem;
+    }
+  }
+  
