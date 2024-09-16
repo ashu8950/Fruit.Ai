@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookF, faInstagram, faPinterestP, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
-
 import '../css/LoginPage.css';
 
 function LoginPage() {
