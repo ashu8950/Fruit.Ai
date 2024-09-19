@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';  // Import useNavigate for navigation
 import axios from 'axios';
 import '../css/FAQList.css';
 
@@ -9,22 +9,21 @@ const FAQList = () => {
   const [fruits, setFruits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  const navigate = useNavigate();  // Initialize navigate
 
   useEffect(() => {
     const getFruits = async () => {
-      setError(null); // Reset error before the request
+      setError(null);
       try {
         const response = await axios.get(`${API_BASE_URL}/faqs`);
-        console.log('Fruits fetched:', response.data); // Debugging output
         setFruits(response.data);
       } catch (error) {
         setError('Error fetching Fruits.');
-        console.error('Error fetching Fruits:', error);
       } finally {
         setLoading(false);
       }
     };
-
     getFruits();
   }, []);
 
@@ -35,13 +34,18 @@ const FAQList = () => {
         setFruits(fruits.filter(fruit => fruit._id !== id));
       } catch (error) {
         setError('Error deleting Fruit.');
-        console.error('Error deleting Fruit:', error);
       }
     }
   };
 
+  const goToHomePage = () => {
+    navigate('/home');  // Navigate to home page
+  };
+
   return (
     <div className="faq-list-container">
+      <button className="back-to-home-button" onClick={goToHomePage}>← Home</button>
+
       <h2>Fruit List</h2>
       <Link to="/add-fruit" className="add-faq-button">Add New Fruit</Link>
 

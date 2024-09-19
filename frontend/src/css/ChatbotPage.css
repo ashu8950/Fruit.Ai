@@ -1,5 +1,4 @@
-/* ChatbotPage.css */
-
+/* Chatbot Page Layout */
 .chatbot-page {
   display: flex;
   flex-direction: column;
@@ -9,6 +8,7 @@
   color: #333;
 }
 
+/* Header Styling */
 .header {
   display: flex;
   align-items: center;
@@ -34,6 +34,7 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+/* Main Chat Container */
 .chatbot-container {
   flex: 1;
   display: flex;
@@ -41,6 +42,7 @@
   padding: 15px;
 }
 
+/* Chat Messages */
 .chat-messages {
   flex: 1;
   overflow-y: auto;
@@ -72,37 +74,22 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Message Content */
 .message-content {
   display: flex;
   flex-direction: column;
 }
 
 .message-image {
-  margin-top: 10px;
   max-width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  max-height: 200px; /* Limit the maximum height */
+  object-fit: cover; /* Ensure image covers the container */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.details {
-  margin-top: 5px;
-  font-size: 0.9em;
-  color: #666;
-  font-weight: bold;
-}
-
-.question {
-  font-weight: bold;
-  font-size: 1.1em;
-  color: #333;
-}
-
-.answer {
-  margin-top: 5px;
-  font-size: 1em;
-  color: #444;
-}
-
+/* FAQ List */
 .content-list {
   display: flex;
   flex-direction: column;
@@ -139,12 +126,15 @@
 }
 
 .faq-image {
-  margin-top: 10px;
   max-width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  max-height: 150px; /* Limit the maximum height */
+  object-fit: cover; /* Ensure image covers the container */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Footer Styling */
 .footer {
   display: flex;
   align-items: center;
@@ -208,6 +198,10 @@
     padding: 10px;
   }
 
+  .message-image, .faq-image {
+    max-height: 150px;
+  }
+
   .footer {
     flex-direction: column;
     align-items: stretch;
@@ -239,5 +233,9 @@
 
   .message {
     font-size: 0.8em;
+  }
+
+  .message-image, .faq-image {
+    max-height: 100px;
   }
 }

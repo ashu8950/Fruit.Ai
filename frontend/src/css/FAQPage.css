@@ -27,8 +27,7 @@
   /* Responsive design */
   
   @media only screen and (max-width: 600px) {
-    .faq-page-container {
-    }
+    
     .back-to-home {
       font-size: 16px;
     }
