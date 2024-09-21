@@ -22,6 +22,7 @@ const FAQList = () => {
         const response = await axios.get(`${API_BASE_URL}/faqs`);
         setFruits(response.data);
       } catch (error) {
+        console.error(error); // Log the error for debugging
         setError('Error fetching fruits.');
       } finally {
         setLoading(false);
@@ -34,8 +35,9 @@ const FAQList = () => {
     if (window.confirm('Are you sure you want to delete this fruit?')) {
       try {
         await axios.delete(`${API_BASE_URL}/faqs/${id}`);
-        setFruits(fruits.filter(fruit => fruit._id !== id));
+        setFruits(prevFruits => prevFruits.filter(fruit => fruit._id !== id)); // Use prevFruits for the most up-to-date state
       } catch (error) {
+        console.error(error); // Log the error for debugging
         setError('Error deleting fruit.');
       }
     }

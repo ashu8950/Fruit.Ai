@@ -10,7 +10,10 @@ const PORT = process.env.PORT || 5000;
 
 // CORS setup
 const corsOptions = {
-  origin: process.env.CLIENT_URL || 'https://fruitsai.netlify.app/'|| 'https://localhost:3000', 
+  origin: [
+    process.env.CLIENT_URL || 'https://fruitsai.netlify.app',
+    'https://localhost:3000',
+  ],
   optionsSuccessStatus: 200,
 };
 
@@ -41,7 +44,7 @@ app.use((req, res) => {
 });
 
 // Global Error Handler
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({
     error: 'Internal Server Error',

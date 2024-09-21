@@ -125,11 +125,11 @@ const ChatbotPage = () => {
                         <div className="left-section">
                           {msg.image && (
                             <img
-                              src={`https://fruit-ai-oi8l.onrender.com/${msg.image}`}
+                              src={`${API_BASE_URL}/${msg.image}`}
                               alt="Detail"
                               className="faq-image"
                               onError={(e) => {
-                                e.target.src = 'https://fruit-ai-oi8l.onrender.com/uploads/default-image.jpg'; // Fallback image
+                                e.target.src = `${API_BASE_URL}/uploads/default-image.jpg`; // Fallback image
                               }}
                             />
                           )}
@@ -163,7 +163,7 @@ const ChatbotPage = () => {
                         </div>
                       </>
                     ) : (
-                      <span className="no-info">{msg.text}</span> // Text when no details available
+                      <span className="no-info">{msg.text}</span>
                     )}
                   </div>
                 )}
@@ -183,11 +183,11 @@ const ChatbotPage = () => {
                   <span className="faq-question">{faq.question}</span>
                   {faq.imageUrl && (
                     <img
-                      src={`https://fruit-ai-oi8l.onrender.com/${faq.imageUrl}`}
+                      src={`${API_BASE_URL}/${faq.imageUrl}`}
                       alt={faq.question}
                       className="faq-image"
                       onError={(e) => {
-                        e.target.src = 'https://fruit-ai-oi8l.onrender.com/uploads/default-image.jpg'; // Fallback image
+                        e.target.src = `${API_BASE_URL}/uploads/default-image.jpg`; // Fallback image
                       }}
                     />
                   )}
