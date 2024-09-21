@@ -6,6 +6,7 @@ import editIcon from '../assets/edit-icon.jpeg';
 import deleteIcon from '../assets/delete-icon.jpeg';
 import addIcon from '../assets/add.png';
 import subIcon from '../assets/subtract.png';
+import defaultImg from '../assets/default.avif'; // Update this path if necessary
 
 const API_BASE_URL = 'https://fruit-ai-oi8l.onrender.com/api';
 
@@ -22,7 +23,7 @@ const FAQList = () => {
         const response = await axios.get(`${API_BASE_URL}/faqs`);
         setFruits(response.data);
       } catch (error) {
-        console.error(error); // Log the error for debugging
+        console.error('Error fetching fruits:', error);
         setError('Error fetching fruits.');
       } finally {
         setLoading(false);
@@ -35,9 +36,9 @@ const FAQList = () => {
     if (window.confirm('Are you sure you want to delete this fruit?')) {
       try {
         await axios.delete(`${API_BASE_URL}/faqs/${id}`);
-        setFruits(prevFruits => prevFruits.filter(fruit => fruit._id !== id)); // Use prevFruits for the most up-to-date state
+        setFruits(prevFruits => prevFruits.filter(fruit => fruit._id !== id));
       } catch (error) {
-        console.error(error); // Log the error for debugging
+        console.error('Error deleting fruit:', error);
         setError('Error deleting fruit.');
       }
     }
@@ -66,9 +67,11 @@ const FAQList = () => {
             <li key={fruit._id} className="faq-item">
               <div className="left-section">
                 <img
-                  src={fruit.imageUrl ? `${API_BASE_URL}/${fruit.imageUrl}` : `${API_BASE_URL}/uploads/default-image.jpg`}
+                  src={fruit.imageUrl ? `${API_BASE_URL}/${fruit.imageUrl}` : defaultImg}
                   alt={fruit.name || 'Fruit Image'}
-                  onError={(e) => e.target.src = `${API_BASE_URL}/uploads/default-image.jpg`}
+                  onError={(e) => {
+                    e.target.src = defaultImg; // Fallback image
+                  }}
                 />
                 <div className="name-price">
                   <h3>{fruit.name || 'Unnamed Fruit'}</h3>

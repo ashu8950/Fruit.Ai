@@ -4,6 +4,7 @@ import '../css/ChatbotPage.css';
 import chatbot from "../assets/chatbot.jpeg";
 import addIcon from '../assets/add.png'; 
 import subIcon from '../assets/subtract.png'; 
+import defaultImg from '../assets/default.avif'; // Correct extension
 
 const API_BASE_URL = 'https://fruit-ai-oi8l.onrender.com/api';
 
@@ -21,7 +22,7 @@ const ChatbotPage = () => {
         const response = await axios.get(`${API_BASE_URL}/faqs`);
         setFaqs(response.data);
       } catch (error) {
-        console.error('Failed to fetch FAQs:', error);
+        console.error('Failed to fetch FAQs:', error.response?.data || error.message);
         setError('Failed to load FAQs.');
       }
     };
@@ -50,19 +51,20 @@ const ChatbotPage = () => {
   };
 
   const handleSearch = async () => {
+    if (!searchQuery.trim()) return; // Avoid searching with empty input
+
+    setShowChat(true);
+    setMessages(prevMessages => [
+      ...prevMessages,
+      { type: 'user', text: searchQuery }
+    ]);
+
     try {
-      const response = await axios.get(`${API_BASE_URL}/faqs`);
-      const filteredFAQs = response.data.filter(faq =>
+      const filteredFAQs = faqs.filter(faq =>
         faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
         faq.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         faq.price.toString().includes(searchQuery)
       );
-
-      setShowChat(true);
-      setMessages(prevMessages => [
-        ...prevMessages,
-        { type: 'user', text: searchQuery }
-      ]);
 
       if (filteredFAQs.length > 0) {
         filteredFAQs.forEach(faq => {
@@ -85,10 +87,11 @@ const ChatbotPage = () => {
           { type: 'bot', text: `No information found for "${searchQuery}".`, details: null }
         ]);
       }
-      setSearchQuery('');
     } catch (error) {
       console.error('Failed to search FAQs:', error);
       setError('Failed to search FAQs.');
+    } finally {
+      setSearchQuery('');
     }
   };
 
@@ -129,7 +132,7 @@ const ChatbotPage = () => {
                               alt="Detail"
                               className="faq-image"
                               onError={(e) => {
-                                e.target.src = `${API_BASE_URL}/uploads/default-image.jpg`; // Fallback image
+                                e.target.src = defaultImg; // Use the default image directly
                               }}
                             />
                           )}
@@ -187,7 +190,7 @@ const ChatbotPage = () => {
                       alt={faq.question}
                       className="faq-image"
                       onError={(e) => {
-                        e.target.src = `${API_BASE_URL}/uploads/default-image.jpg`; // Fallback image
+                        e.target.src = defaultImg; // Use the default image directly
                       }}
                     />
                   )}
