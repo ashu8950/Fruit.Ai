@@ -4,10 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import '../css/FAQForm.css';
 
 const FAQForm = () => {
-  const [question, setQuestion] = useState('');
-  const [answer, setAnswer] = useState('');
+  const [name, setName] = useState('');
+  const [question, setQuestion] = useState(''); 
+  const [answer, setAnswer] = useState(''); 
+  const [price, setPrice] = useState('');
   const [image, setImage] = useState(null);
   const [notification, setNotification] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const handleImageChange = (e) => {
@@ -21,27 +25,34 @@ const FAQForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
 
     const formData = new FormData();
-    formData.append('question', question);
-    formData.append('answer', answer);
+    formData.append('name', name);
+    formData.append('question', question); // Updated field
+    formData.append('answer', answer); // Updated field
+    formData.append('price', price);
     if (image) {
       formData.append('image', image);
     }
 
     try {
       await createFAQ(formData);
-      setNotification('FAQ added successfully!');
+      setNotification('Fruit added successfully!');
+      setName('');
       setQuestion('');
       setAnswer('');
+      setPrice('');
       setImage(null);
       setTimeout(() => {
         setNotification('');
         navigate('/faq');
       }, 2000);
     } catch (error) {
-      setNotification('Failed to add FAQ.');
-      console.error('Error adding FAQ:', error.response ? error.response.data : error.message);
+      console.error('Error adding fruit:', error.response || error);
+      setNotification(error.response?.data.message || 'Failed to add fruit. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -51,7 +62,17 @@ const FAQForm = () => {
       {notification && <p className="notification">{notification}</p>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="question">Fruit:</label>
+          <label htmlFor="name">Fruit Name:</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="question">Fruit Question:</label>
           <input
             type="text"
             id="question"
@@ -61,12 +82,24 @@ const FAQForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="answer">Description:</label>
+          <label htmlFor="answer">Fruit Answer:</label>
           <textarea
             id="answer"
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}
             required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="price">Price (in USD):</label>
+          <input
+            type="number"
+            id="price"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            required
+            min="0"
+            step="0.01"
           />
         </div>
         <div className="form-group">
@@ -78,7 +111,9 @@ const FAQForm = () => {
             onChange={handleImageChange}
           />
         </div>
-        <button type="submit">Add Fruit</button>
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? 'Adding...' : 'Add Fruit'}
+        </button>
       </form>
     </div>
   );

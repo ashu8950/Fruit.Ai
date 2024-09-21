@@ -1,276 +1,205 @@
-/* FAQ List Container */
 .faq-list-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #f5f5f5;
-    min-height: 100%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    width: 100%;
-    height: 100vh;
-    max-width: 1200px;
-    margin: -20px auto;
-    box-sizing: border-box;
     position: relative;
-    overflow-y: auto;
-    padding-bottom: 60px;
+    max-width: 900px;
+    padding: 20px;
+    background: linear-gradient(110deg, #F5F7FA, #C3CFE2);  
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
-/* Header */
-h2 {
-    margin-bottom: 4vh;
-    color: #333;
-    font-size: 2em;
-    font-weight: bold;
-    text-align: center;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
-}
-
-/* Add FAQ Button */
+.back-to-home-button,
 .add-faq-button {
-    background-color: #69b1fe;
+    display: inline-block;
+    background-color: #343a40; /* Dark gray color */
     color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 5px;
     text-decoration: none;
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto; /* Center the button */
+    transition: background-color 0.3s ease, box-shadow 0.2s ease;
+    text-align: center;
 }
 
+.back-to-home-button:hover,
 .add-faq-button:hover {
-    background-color: #0056b3;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    background-color: #495057;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Home Button Styling */
-.back-to-home-button {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    padding: 12px 24px;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.back-to-home-button:hover {
-    background-color: #555;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-.back-to-home-button:active {
-    background-color: #222;
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-}
-
-/* FAQ List */
-.faq-list {
+.button-container {
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
     justify-content: center;
-    width: 100%;
-    box-sizing: border-box;
+    margin-bottom: 20px;
 }
 
-/* FAQ Item */
+.faq-list {
+    list-style: none;
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto; 
+    
+
+}
 .faq-item {
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    width: calc(33.333% - 12px);
-    max-width: 30vw;
-    min-height: 200px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: space-between;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    align-items: center;
+    background-color: white;
     border: 1px solid #ddd;
-    box-sizing: border-box;
-    margin-bottom: 12px;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Subtle 3D effect via shadow */
+    min-height: 140px;
+    width: 100%;
+    perspective: 1000px; /* Enable 3D perspective */
 }
 
 .faq-item:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
 }
 
-/* FAQ Item Title */
-.faq-item h3 {
-    margin: 0;
-    color: #333;
-    font-size: 1.2em;
-    font-weight: bold;
-    text-align: center;
-}
-
-/* FAQ Item Description */
-.faq-item p {
-    text-align: center;
-    color: #666;
-    margin: 6px 0;
-    font-size: 0.9em;
-}
-
-/* FAQ Item Image */
-.faq-item img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 4px;
-    margin-bottom: 8px;
-}
-
-/* Action Buttons */
-.faq-buttons {
+.left-section {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    gap: 6px;
-    box-sizing: border-box;
-    margin-top: 12px;
+    flex-direction: column;
+    align-items: center;
+    width: 25%;
 }
 
-/* General Button Styling */
+.faq-item img {
+    max-width: 150px; /* Larger image size */
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease; /* Smooth scaling */
+}
+
+.faq-item:hover img {
+    transform: scale(1.1); /* Scale image on hover */
+}
+
+.name-price h3 {
+    font-size: 18px; /* Adjusted font size for emphasis */
+    margin: 5px 0;
+    color: #333;
+}
+
+.name-price .price {
+    font-size: 14px; /* Adjusted font size */
+    color: #888;
+}
+
+.middle-section {
+    flex-grow: 1;
+    padding-left: 15px;
+    padding-right: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.middle-section .question {
+    font-size: 18px; /* Adjusted font size */
+    font-weight: bold;
+    color: #333;
+}
+
+.middle-section .benefits {
+    font-size: 15px; /* Adjusted font size */
+    color: #777;
+}
+
+.faq-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 5px;
+}
+
 .edit-button,
 .delete-button {
-    padding: 6px 12px;
+    background-color: transparent;
     border: none;
-    border-radius: 6px;
     cursor: pointer;
-    font-size: 12px;
-    text-decoration: none;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    display: inline-flex;
-    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+.edit-icon,
+.delete-icon {
+    width: 30px; /* Increased icon size */
+    height: 30px;
+}
+
+.right-section {
+    display: flex;
     justify-content: center;
-    min-width: 60px;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    width: 20%;
 }
 
-.edit-button {
-    background-color: #333;
-    color: white;
+.quantity-buttons {
+    display: flex;
+    flex-direction: column; /* Column layout for larger screens */
+    gap: 10px; /* Adjust gap between buttons */
+    font-weight: bold; /* Emphasize quantity section */
 }
 
-.edit-button:hover {
-    background-color: #555;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+.quantity-button {
+    width: 40px; /* Increased button size */
+    height: 40px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
-.delete-button {
-    background-color: #f44336;
-    color: white;
+.quantity-button:hover {
+    transform: scale(1.1); /* Slight enlargement on hover */
 }
 
-.delete-button:hover {
-    background-color: #e53935;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Responsive Adjustments */
-@media (max-width: 1024px) {
-    .faq-item {
-        width: calc(50% - 10px);
-        max-width: 45vw;
-        min-height: 160px;
-    }
-
-    .add-faq-button {
-        padding: 10px 20px;
-        font-size: 14px;
-    }
-
-    h2 {
-        font-size: 1.6em;
-    }
-
-    .back-to-home-button {
-        padding: 10px 20px;
-        font-size: 14px;
-    }
-}
-
+/* Responsive styles for smaller screens */
 @media (max-width: 768px) {
     .faq-item {
-        width: calc(50% - 6px);
-        max-width: 90vw;
-        min-height: 140px;
+        flex-direction: column; /* Stack items vertically on small screens */
+        align-items: center;
     }
 
-    .add-faq-button {
-        padding: 8px 16px;
-        font-size: 12px;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
+    .left-section,
+    .right-section {
+        width: 100%; /* Full width for smaller screens */
+        text-align: center;
     }
 
-    h2 {
-        font-size: 1.4em;
-    }
-
-    .faq-list {
-        gap: 8px;
-    }
-
-    .back-to-home-button {
-        padding: 8px 16px;
-        font-size: 12px;
-        top: 10px;
-        left: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .faq-item {
-        width: 100%;
-        max-width: 90vw;
-        min-height: auto;
+    .middle-section {
         padding: 10px;
     }
 
-    .add-faq-button {
-        padding: 8px 16px;
-        font-size: 12px;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
+    .faq-item img {
+        max-width: 120px; /* Maintain a larger image size for smaller screens */
     }
 
-    h2 {
-        font-size: 1.2em;
+    .right-section {
+        width: 100%;
     }
 
-    .faq-list {
-        gap: 6px;
+    .quantity-buttons {
+        flex-direction: row; /* Align buttons in a row on smaller screens */
+        justify-content: center; /* Center the buttons */
+        gap: 20px; /* Space between buttons */
+        font-weight: bold; /* Strong emphasis for quantity */
     }
 
-    .back-to-home-button {
-        padding: 6px 12px;
-        font-size: 12px;
-        top: 8px;
-        left: 8px;
+    .quantity-button {
+        width: 35px; /* Slightly smaller button for small screens */
+        height: 35px;
+    }
+}
+
+@media (max-width: 400px) {
+    .faq-item img {
+        max-width: 100px; /* Further adjust for very small screens */
+    }
+
+    .quantity-button {
+        width: 30px;
+        height: 30px;
     }
 }

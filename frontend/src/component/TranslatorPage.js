@@ -1,93 +1,115 @@
 import React, { useState } from 'react';
-import "../css/Translator.css"; // Assuming you have your CSS file
-
-// Import the JSON file
-import dictionaryData from '../dictionaries/dictionaries.json';
+import axios from 'axios';
+import "../css/Translator.css";
 
 const TranslatorPage = () => {
-  const [inputText, setInputText] = useState(""); // Input text state
-  const [translatedText, setTranslatedText] = useState(""); // Translated text state
-  const [sourceLanguage, setSourceLanguage] = useState("english"); // Default source language
-  const [targetLanguage, setTargetLanguage] = useState("hindi"); // Default target language
-  const [error, setError] = useState(null); // For handling errors
+  const [inputText, setInputText] = useState("");
+  const [translatedText, setTranslatedText] = useState("");
+  const [sourceLanguage, setSourceLanguage] = useState("en");
+  const [targetLanguage, setTargetLanguage] = useState("hi");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  // List of available languages (based on the dictionary data)
-  const availableLanguages = ["english", "hindi", "spanish"];
+  const availableLanguages = [
+    { name: "Afrikaans", code: "af" },
+    { name: "Arabic", code: "ar" },
+    { name: "Chinese (Simplified)", code: "zh-Hans" },
+    { name: "Chinese (Traditional)", code: "zh-Hant" },
+    { name: "Czech", code: "cs" },
+    { name: "Danish", code: "da" },
+    { name: "Dutch", code: "nl" },
+    { name: "English", code: "en" },
+    { name: "Estonian", code: "et" },
+    { name: "Finnish", code: "fi" },
+    { name: "French", code: "fr" },
+    { name: "German", code: "de" },
+    { name: "Greek", code: "el" },
+    { name: "Hebrew", code: "he" },
+    { name: "Hindi", code: "hi" },
+    { name: "Hungarian", code: "hu" },
+    { name: "Icelandic", code: "is" },
+    { name: "Indonesian", code: "id" },
+    { name: "Italian", code: "it" },
+    { name: "Japanese", code: "ja" },
+    { name: "Korean", code: "ko" },
+    { name: "Latvian", code: "lv" },
+    { name: "Lithuanian", code: "lt" },
+    { name: "Norwegian", code: "no" },
+    { name: "Polish", code: "pl" },
+    { name: "Portuguese", code: "pt" },
+    { name: "Romanian", code: "ro" },
+    { name: "Russian", code: "ru" },
+    { name: "Slovak", code: "sk" },
+    { name: "Slovenian", code: "sl" },
+    { name: "Spanish", code: "es" },
+    { name: "Swedish", code: "sv" },
+    { name: "Thai", code: "th" },
+    { name: "Turkish", code: "tr" },
+    { name: "Ukrainian", code: "uk" },
+    { name: "Vietnamese", code: "vi" },
+  ];
 
-  // Create dictionaries for quick lookup
-  const createDictionary = (sourceLang, targetLang) => {
-    return dictionaryData.words.reduce((dict, entry) => {
-      const key = entry[sourceLang];
-      if (key) {
-        dict[key.toLowerCase()] = entry[targetLang];
-      }
-      return dict;
-    }, {});
-  };
+  const translateText = async () => {
+    if (!inputText) return;
 
-  // Function to handle translation
-  const translateText = () => {
-    if (sourceLanguage === targetLanguage) {
-      setTranslatedText(inputText);
-      return;
+    setLoading(true);
+    setError(null);
+
+    try {
+      const options = {
+        method: 'POST',
+        url: 'https://microsoft-translator-text.p.rapidapi.com/translate',
+        params: { 'to': targetLanguage, 'api-version': '3.0', 'from': sourceLanguage, 'textType': 'plain' },
+        headers: {
+          'content-type': 'application/json',
+          'X-RapidAPI-Key': 'a2cce9204fmsh13d277fd68f91a0p1bfc64jsn438c666083cd',
+          'X-RapidAPI-Host': 'microsoft-translator-text.p.rapidapi.com'
+        },
+        data: [{ Text: inputText }]
+      };
+
+      const response = await axios.request(options);
+      const translation = response.data[0].translations[0].text;
+      setTranslatedText(translation);
+    } catch (err) {
+      setError('Error during translation');
     }
 
-    // Create dictionaries based on selected languages
-    const dictionary = createDictionary(sourceLanguage, targetLanguage);
-
-    const words = inputText.toLowerCase().split(/\s+/); // Split by spaces and handle multiple spaces
-    let translation = "";
-
-    for (let word of words) {
-      // Find the word in the dictionary
-      if (dictionary[word]) {
-        // If the word is found, get the translation
-        translation += dictionary[word] + " ";
-      } else {
-        // If the word is not found, retain the original word
-        translation += word + " ";
-      }
-    }
-
-    setTranslatedText(translation.trim());
-    setError(null); // Clear any previous errors
+    setLoading(false);
   };
 
   return (
     <div className="translator-container">
       <h1 className="translator-title">Multi-Language Translator</h1>
 
-      {/* Source Language Selection */}
       <label htmlFor="source-language">From:</label>
-      <select 
+      <select
         id="source-language"
-        value={sourceLanguage} 
-        onChange={(e) => setSourceLanguage(e.target.value)} 
+        value={sourceLanguage}
+        onChange={(e) => setSourceLanguage(e.target.value)}
         className="language-selector"
       >
         {availableLanguages.map((lang) => (
-          <option key={lang} value={lang}>
-            {lang.charAt(0).toUpperCase() + lang.slice(1)}
+          <option key={lang.code} value={lang.code}>
+            {lang.name}
           </option>
         ))}
       </select>
 
-      {/* Target Language Selection */}
       <label htmlFor="target-language">To:</label>
-      <select 
+      <select
         id="target-language"
-        value={targetLanguage} 
-        onChange={(e) => setTargetLanguage(e.target.value)} 
+        value={targetLanguage}
+        onChange={(e) => setTargetLanguage(e.target.value)}
         className="language-selector"
       >
         {availableLanguages.map((lang) => (
-          <option key={lang} value={lang}>
-            {lang.charAt(0).toUpperCase() + lang.slice(1)}
+          <option key={lang.code} value={lang.code}>
+            {lang.name}
           </option>
         ))}
       </select>
 
-      {/* Input text area */}
       <textarea
         rows="4"
         cols="50"
@@ -97,15 +119,12 @@ const TranslatorPage = () => {
         className="translator-input"
       />
 
-      {/* Translate button */}
       <button onClick={translateText} className="translate-button">
-        Translate
+        {loading ? "Translating..." : "Translate"}
       </button>
 
-      {/* Error message */}
       {error && <p className="error-message">{error}</p>}
 
-      {/* Output section for translated text */}
       {translatedText && (
         <div className="translated-output">
           <h3>Translated Text:</h3>

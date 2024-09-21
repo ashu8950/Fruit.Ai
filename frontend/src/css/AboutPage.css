@@ -4,12 +4,12 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #faf8f8; /* Black background */
+    background: linear-gradient(110deg, #F5F7FA, #C3CFE2);  
     margin: 0;
   }
   
   .about-content {
-    background-color: #ffffff; /* White background for content */
+    background: white;
     color: #000000; /* Black text for high contrast */
     border-radius: 20px; /* Rounded corners */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Darker shadow for 3D effect */

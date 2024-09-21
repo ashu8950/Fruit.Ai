@@ -12,10 +12,12 @@
     align-items: center;
     min-height: 100vh;
     color: #333;
+    background: linear-gradient(110deg, #6a5acd, #00bfff, #ffffff); 
+
   }
   
   .login-container {
-    background-color: white;
+    background: linear-gradient(110deg, #F5F7FA, #C3CFE2); 
     padding: 20px;
     border-radius: 10px;
     width: 90vw;

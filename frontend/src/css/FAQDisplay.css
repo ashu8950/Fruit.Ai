@@ -1,90 +1,116 @@
+.outer-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
 .faq-details-container {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .faq-details-container h2 {
-    margin-top: 0;
-  }
-  
-  .notification {
-    color: #008000;
-    background-color: #f0f0f0;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  .form-group input, .form-group textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .form-group input[type="file"] {
-    padding: 10px 0;
-  }
-  
-  button[type="submit"] {
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 10px 20px;
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #3e8e41;
-  }
-  
-  .back-button {
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 10px 20px;
-    margin-top: 20px;
-  }
-  
-  .back-button:hover {
-    background-color: #3e8e41;
-  }
-  
-  /* Responsive design */
-  
-  @media only screen and (max-width: 600px) {
-    .faq-details-container {
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  margin: 40px auto;
+  padding: 20px;
+  background: linear-gradient(110deg, #F5F7FA, #C3CFE2); 
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; 
+  box-sizing: border-box; 
+}
+
+.faq-details-container h2 {
+  margin-top: 0;
+}
+
+.notification {
+  color: #008000;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-group input[type="file"] {
+  padding: 10px 0;
+}
+
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px 20px;
+  width: 100%; 
+}
+
+button[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+.back-button {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-top: 20px;
+  width: 100%; /* Full width for back button */
+}
+
+.back-button:hover {
+  background-color: #3e8e41;
+}
+
+/* Responsive design */
+
+@media only screen and (max-width: 600px) {
+  .faq-details-container {
       margin: 20px;
       padding: 10px;
-    }
-    .form-group {
+  }
+
+  .form-group {
       margin-bottom: 10px;
-    }
-    .form-group label {
+  }
+
+  .form-group label {
       font-size: 14px;
-    }
-    .form-group input, .form-group textarea {
+  }
+
+  .form-group input,
+  .form-group textarea {
       font-size: 14px;
-    }
-    button[type="submit"], .back-button {
+  }
+
+  button[type="submit"],
+  .back-button {
       font-size: 14px;
       padding: 10px 15px;
-    }
   }
+}

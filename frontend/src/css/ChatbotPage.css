@@ -1,14 +1,13 @@
-/* Chatbot Page Layout */
+/* General Styles */
 .chatbot-page {
   display: flex;
   flex-direction: column;
   height: 100vh;
   font-family: Arial, sans-serif;
-  background: #f4f4f9;
+  background: linear-gradient(110deg, #F5F7FA, #C3CFE2); 
   color: #333;
 }
 
-/* Header Styling */
 .header {
   display: flex;
   align-items: center;
@@ -25,29 +24,58 @@
   height: 40px;
   border-radius: 50%;
   margin-right: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .header .chatbot-name {
-  font-size: 1.3em;
+  font-size: 1.5em;
   font-weight: bold;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Main Chat Container */
+/* Chat Container */
 .chatbot-container {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 15px;
+  padding: 20px;
+  overflow: hidden;
+}
+.no-info {
+  font-size: 1rem;
+  color: #999; 
+  padding: 10px 0; 
 }
 
-/* Chat Messages */
+.error-message {
+  color: red;
+  font-weight: bold;
+}
+
 .chat-messages {
   flex: 1;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
+  padding: 10px;
+  background: linear-gradient(110deg, #F5F7FA, #C3CFE2);
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: 70vh; /* Limit height */
+  scrollbar-width: thin; /* Firefox */
+}
+
+/* Scrollbar styles for WebKit browsers (Chrome, Safari) */
+.chat-messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
 }
 
 .message {
@@ -56,45 +84,21 @@
   border-radius: 12px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   background: #ffffff;
-  position: relative;
-  transform: perspective(1px) translateZ(0);
+  width: 100%;
+  max-width: 600px;
 }
 
 .message.user {
   background: #e0f7fa;
   align-self: flex-end;
-  border-top-right-radius: 0;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .message.bot {
   background: #ffffff;
   align-self: flex-start;
-  border-top-left-radius: 0;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Message Content */
-.message-content {
-  display: flex;
-  flex-direction: column;
-}
-
-.message-image {
-  max-width: 100%;
-  height: auto; /* Maintain aspect ratio */
-  max-height: 200px; /* Limit the maximum height */
-  object-fit: cover; /* Ensure image covers the container */
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* FAQ List */
-.content-list {
-  display: flex;
-  flex-direction: column;
-}
-
+/* FAQ List (Home Page) */
 .faq-list {
   display: flex;
   flex-wrap: wrap;
@@ -102,140 +106,164 @@
 }
 
 .faq-card {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  padding: 15px;
-  text-align: center;
+  flex: 1 1 calc(33% - 15px);
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
   width: 100%;
-  max-width: 280px;
-  transform: perspective(1px) translateZ(0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .faq-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .faq-question {
+  font-size: 16px;
   font-weight: bold;
-  font-size: 1.1em;
-  color: #333;
+  margin-bottom: 10px;
 }
 
 .faq-image {
-  max-width: 100%;
-  height: auto; /* Maintain aspect ratio */
-  max-height: 150px; /* Limit the maximum height */
-  object-fit: cover; /* Ensure image covers the container */
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
 }
 
-/* Footer Styling */
-.footer {
+.faq-info {
+  margin-top: 10px;
+}
+
+.faq-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.faq-price {
+  font-size: 16px;
+  color: #666;
+}
+
+/* FAQ Item (Chat Details) */
+.faq-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  min-height: 140px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.faq-item .left-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.name-price {
+  margin-top: 10px;
+}
+
+.faq-item .middle-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.faq-item .question {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.faq-item .answer {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Quantity Buttons Section */
+.quantity-buttons {
   display: flex;
   align-items: center;
+}
+
+.quantity-button {
+  width: 30px;
+  cursor: pointer;
+}
+
+.quantity-display {
+  margin: 0 10px;
+}
+
+/* Footer Section */
+.footer {
+  display: flex;
+  justify-content: space-between;
   padding: 10px;
   background: #0056b3;
-  color: white;
-  box-shadow: 0 -8px 16px rgba(0, 0, 0, 0.3);
-  border-top: 5px solid #004494;
 }
 
 .search-input {
   flex: 1;
   padding: 10px;
-  border-radius: 20px;
+  border-radius: 5px;
   border: none;
-  outline: none;
-  font-size: 1em;
   margin-right: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .send-button {
-  padding: 10px 20px;
-  border-radius: 20px;
-  border: none;
-  background: #ffffff;
+  padding: 10px 15px;
+  background: #fff;
   color: #0056b3;
-  font-weight: bold;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s, box-shadow 0.3s;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease;
 }
 
 .send-button:hover {
-  background: #e0e0e0;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  background: #f0f0f0;
 }
 
-/* Responsive Styles */
+/* Responsive Design */
 @media (max-width: 768px) {
-  .header .logo {
-    width: 35px;
-    height: 35px;
-  }
-
-  .header .chatbot-name {
-    font-size: 1.1em;
-  }
-
-  .chatbot-container {
-    padding: 10px;
-  }
-
-  .message {
-    font-size: 0.9em;
-  }
-
   .faq-card {
-    max-width: 100%;
+    flex: 1 1 calc(50% - 10px);
     width: 100%;
-    padding: 10px;
   }
 
-  .message-image, .faq-image {
-    max-height: 150px;
-  }
-
-  .footer {
+  .faq-item {
     flex-direction: column;
-    align-items: stretch;
-    padding: 10px;
+    align-items: center;
   }
 
-  .search-input {
-    margin-bottom: 10px;
-  }
-
-  .send-button {
-    width: 100%;
+  .chat-messages {
+    padding: 15px;
   }
 }
 
 @media (max-width: 480px) {
-  .header .chatbot-name {
-    font-size: 1em;
-  }
-
-  .chatbot-container {
-    padding: 8px;
-  }
-
   .faq-card {
-    padding: 8px;
-    font-size: 0.9em;
-  }
-
-  .message {
-    font-size: 0.8em;
-  }
-
-  .message-image, .faq-image {
-    max-height: 100px;
+    flex: 1 1 100%;
+    width: 100%;
   }
 }
