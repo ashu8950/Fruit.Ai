@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://fruit-ai-oi8l.onrender.com/api';
+const API_URL = 'https://fruit-ai-oi8l.onrender.com/api'
 
 export const createFAQ = (formData) => {
   return axios.post(`${API_URL}/faqs`, formData, {
