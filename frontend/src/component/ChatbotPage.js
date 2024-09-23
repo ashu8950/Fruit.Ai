@@ -4,7 +4,7 @@ import '../css/ChatbotPage.css';
 import chatbot from "../assets/chatbot.jpeg";
 import addIcon from '../assets/add.png'; 
 import subIcon from '../assets/subtract.png'; 
-import defaultImg from '../assets/default.avif'; // Correct extension
+import defaultImg from '../assets/default.avif';
 
 const API_BASE_URL = 'https://fruit-ai-oi8l.onrender.com/api';
 
@@ -14,7 +14,8 @@ const ChatbotPage = () => {
   const [showChat, setShowChat] = useState(false);
   const [faqs, setFaqs] = useState([]);
   const [error, setError] = useState(null);
-  const chatEndRef = useRef(null); 
+  const [loading, setLoading] = useState(true);
+  const chatEndRef = useRef(null);
 
   useEffect(() => {
     const fetchFAQs = async () => {
@@ -24,6 +25,8 @@ const ChatbotPage = () => {
       } catch (error) {
         console.error('Failed to fetch FAQs:', error.response?.data || error.message);
         setError('Failed to load FAQs.');
+      } finally {
+        setLoading(false);
       }
     };
     fetchFAQs();
@@ -84,7 +87,7 @@ const ChatbotPage = () => {
       } else {
         setMessages(prevMessages => [
           ...prevMessages,
-          { type: 'bot', text: `No information found for "${searchQuery}".`, details: null }
+          { type: 'bot', text: `No information found for "${searchQuery}".` }
         ]);
       }
     } catch (error) {
@@ -116,7 +119,9 @@ const ChatbotPage = () => {
 
       <div className="chatbot-container">
         {error && <p className="error-message">{error}</p>}
-        {showChat ? (
+        {loading ? (
+          <p>Loading FAQs...</p>
+        ) : showChat ? (
           <div className="chat-messages">
             {messages.map((msg, index) => (
               <div key={index} className={`message ${msg.type}`}>
@@ -132,7 +137,7 @@ const ChatbotPage = () => {
                               alt="Detail"
                               className="faq-image"
                               onError={(e) => {
-                                e.target.src = defaultImg; // Use the default image directly
+                                e.target.src = defaultImg; 
                               }}
                             />
                           )}
@@ -154,6 +159,7 @@ const ChatbotPage = () => {
                               alt="Subtract"
                               onClick={() => updateQuantity(index, -1)}
                               className="quantity-button"
+                              aria-label="Decrease quantity"
                             />
                             <p className="quantity-display">{msg.quantity}</p>
                             <img
@@ -161,6 +167,7 @@ const ChatbotPage = () => {
                               alt="Add"
                               onClick={() => updateQuantity(index, 1)}
                               className="quantity-button"
+                              aria-label="Increase quantity"
                             />
                           </div>
                         </div>
@@ -177,9 +184,9 @@ const ChatbotPage = () => {
         ) : (
           <div className="content-list">
             <div className="faq-list">
-              {faqs.map((faq, index) => (
+              {faqs.map((faq) => (
                 <div
-                  key={index}
+                  key={faq._id} // Ensure this is a unique ID
                   className="faq-card"
                   onClick={() => handleFAQClick(faq)}
                 >
@@ -190,7 +197,7 @@ const ChatbotPage = () => {
                       alt={faq.question}
                       className="faq-image"
                       onError={(e) => {
-                        e.target.src = defaultImg; // Use the default image directly
+                        e.target.src = defaultImg; 
                       }}
                     />
                   )}
@@ -209,6 +216,7 @@ const ChatbotPage = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyPress={handleKeyPress}
           className="search-input"
+          aria-label="Search FAQ"
         />
         <button className="send-button" onClick={handleSearch}>Send</button>
       </footer>

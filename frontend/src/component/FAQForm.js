@@ -23,14 +23,22 @@ const FAQForm = () => {
     setImage(selectedFile);
   };
 
+  const resetForm = () => {
+    setName('');
+    setQuestion('');
+    setAnswer('');
+    setPrice('');
+    setImage(null);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
 
     const formData = new FormData();
     formData.append('name', name);
-    formData.append('question', question); // Updated field
-    formData.append('answer', answer); // Updated field
+    formData.append('question', question);
+    formData.append('answer', answer);
     formData.append('price', price);
     if (image) {
       formData.append('image', image);
@@ -39,17 +47,13 @@ const FAQForm = () => {
     try {
       await createFAQ(formData);
       setNotification('Fruit added successfully!');
-      setName('');
-      setQuestion('');
-      setAnswer('');
-      setPrice('');
-      setImage(null);
+      resetForm();
       setTimeout(() => {
         setNotification('');
         navigate('/faq');
       }, 2000);
     } catch (error) {
-      console.error('Error adding fruit:', error.response || error);
+      console.error('Error adding fruit:', error);
       setNotification(error.response?.data.message || 'Failed to add fruit. Please try again.');
     } finally {
       setIsLoading(false);

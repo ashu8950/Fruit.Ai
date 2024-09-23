@@ -43,6 +43,7 @@ a {
     justify-content: center;
     align-items: center;
     text-align: center;
+    border-radius: 20px;
 }
 
 .header h1 {
@@ -123,7 +124,7 @@ a {
 .anonymous {
     font-size: 0.9em;
     color: #777;
-    margin-top: 8px;
+    margin-top: -5px;
 }
 
 .home_footer {
